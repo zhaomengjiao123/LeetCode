@@ -104,6 +104,60 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     return ans;
 }
 
+vector<vector<int>> threeNumMy(vector<int>& nums){
+    // 三数之和
+    int n = nums.size();
+    // 先排序
+    sort(nums.begin(),nums.end());
+    // 循环判断
+    vector<vector<int>> ans;
+    for (int first = 0; first < n; first++)
+    {
+        // 固定第一个数 因为不能和之前数重复
+        if (first>0&&nums[first]==nums[first-1])
+        {
+            // 跳过
+            continue; // 因为要求  是哪个 值不相等
+        }
+        int target = -nums[first];
+        // 开始寻找第二个数
+        int third = n-1;
+        for (int second = first+1; second < n; second++)
+        {
+            // 第二个数一定在第三个数的左边
+            // 第二个数也不能重复
+            if (second>first+1&&nums[second]==nums[second-1])
+            {
+                continue;
+            }
+
+            while (second<third&&nums[second]+nums[third]>target)
+            {
+                third--;
+            }
+            if (second==third)
+            {
+                break;
+            }
+            if (nums[second]+nums[third]==target)
+            {
+                // 找到了
+                ans.push_back({nums[first],nums[second],nums[third]});
+            }
+            
+            
+            
+            
+
+        }
+         
+        
+    }
+
+    return ans;
+    
+}
+
 int main(){
     vector<int> nums;
     string s;

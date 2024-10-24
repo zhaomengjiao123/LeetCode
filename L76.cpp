@@ -149,12 +149,89 @@ string minWindow(string s, string t){
 
 }
 
+
+// 最小覆盖子串 二刷
+
+bool checkHash(unordered_map<char,int>& smap, unordered_map<char,int>& tmap){
+    for (auto &tt:tmap)
+    {
+        cout << tt.second <<" "<<smap[tt.first]<<endl;
+        // 为什么这里必须是大于？因为我们使用这个判断之后
+        // 只要s滑动窗口中的相应的字母的数量等于或者大于t中相应字母的数量就可以
+        if (tt.second>smap[tt.first])
+        {
+            return false;
+        }
+        
+    }
+    return true;
+    
+}
+
+string minWindow2(string s, string t){
+    int sl = s.size();
+    int tl = t.size();
+    if (tl>sl)
+    {
+        return "";
+    }
+    int left=0, right=0;
+    unordered_map<char,int> tmap;
+    unordered_map<char,int> smap;
+    int ans_start=0,ans_end=0;
+    int minL = INT_MAX;
+    for (int i = 0; i < tl; i++)
+    {
+        tmap[t[i]]++;
+    }
+    // 寻找每一个可能得起点
+    while (right<sl)
+    {
+        // 记录每个遍历过的字符
+        smap[s[right]]++;
+        if (tmap.count(s[right]))
+        {
+            
+            cout<<"r:"<<right<<" "<<s[right]<<endl;
+            // 检查
+            // 更新最小窗口
+            while (checkHash(smap,tmap)&&left<=right)
+            {
+                 int l = right-left+1;
+            if (minL>l)
+            {
+                minL = l;
+                ans_start=left;
+                ans_end=right;
+            }
+            // 左移 还要减去相应的值
+            smap[s[left]]--;
+            left++;
+                
+            }
+            
+        }
+        right++;
+
+        
+        
+    }
+
+    return s.substr(ans_start,minL);
+    
+    
+    
+    
+}
+
 int main(){
     string s;
     cin>>s;
     string t;
     cin >>t;
 
-    string ans = minWindow(s, t);
+    // string ans = minWindow(s, t);
+    string ans = minWindow2(s, t);
+
     cout<<ans;
 }
