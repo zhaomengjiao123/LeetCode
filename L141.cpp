@@ -17,6 +17,17 @@
 #include<unordered_set>
 using namespace std;
 
+
+// 创建链表的结构体
+
+// struct ListNode
+// {
+//     int val;
+//     ListNode *next;
+//     ListNode(int x):val(x),next(nullptr){};
+// };
+
+
 struct ListNode {
      int val;
      ListNode *next;
@@ -40,4 +51,33 @@ bool hasCycle(ListNode *head) {
     return false;
     
         
+}
+
+
+// 二刷  判断链表中是否有环
+
+// 思路 快慢 指针  如果相遇的话 就证明链表中有环
+bool hasCycle2(ListNode *head) {
+    if (head==nullptr || head->next == nullptr)
+    {
+        return false;
+    }
+    ListNode* slow = head ;
+    ListNode* fast = head->next;
+    while (slow!=fast)
+    {
+        if (fast==nullptr||fast->next==nullptr)
+        {
+            // 不存在了 直接  返回  不存在环的话 快指针会直接指向最后一个结点的next
+            return false;
+        }
+        slow = slow->next;
+        fast = fast->next->next;
+
+        
+    }
+    return true;
+    
+    
+
 }

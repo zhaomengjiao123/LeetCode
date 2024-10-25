@@ -29,6 +29,7 @@ struct ListNode {
 ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     ListNode* l1 = list1;
     ListNode* l2 = list2;
+    // 先初始化一个新的节点作为新链表的头部节点
     ListNode* newList = new ListNode(-1);
     ListNode* curr=newList;
     while (l1!=nullptr && l2!=nullptr)

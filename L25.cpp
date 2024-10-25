@@ -79,3 +79,70 @@ ListNode* reverseKGroup(ListNode* head, int k) {
     
 
 }
+
+
+// 给定头结点和尾结点  翻转链表
+pair<ListNode*, ListNode*> reverse2(ListNode* head, ListNode* tail){
+    ListNode* pre = tail->next;
+    ListNode* p = head;
+    while (pre!=tail)
+    {
+        ListNode* nex = p->next;
+        p->next = pre;
+        pre = p;
+        p = nex;
+    }
+    return {tail, head};
+    
+}
+
+// K个一组翻转链表 2 刷
+
+ListNode* reverseKGroup2(ListNode* head, int k) {
+    if (head==nullptr)
+    {
+        return head;
+    }
+    // 虚拟头结点
+    ListNode* dummyNode = new ListNode(-1);
+    dummyNode->next = head;
+    ListNode* pre_left = dummyNode;
+    while (head)
+    {
+        ListNode* tail = pre_left;
+        // 查看剩余的长度
+        for (int i = 0; i < k; i++)
+        {
+            tail = tail->next;
+            // 如果tail不存在说明不够K个  返回
+            if (!tail)
+            {
+                return dummyNode->next;
+            }
+            
+        }
+        // 记录好尾部的下一个节点
+        ListNode* after_tail = tail->next;
+        // 翻转链表
+        pair<ListNode*, ListNode*> res = reverse2(head, tail);
+        // 翻转后的头结点和 尾结点
+        head = res.first;
+        tail = res.second;
+        pre_left->next = head;
+        tail->next = after_tail;
+        //继续下一轮
+        pre_left = tail;
+        head = tail->next;
+
+
+        
+
+
+        
+    }
+    return dummyNode->next;
+    
+    
+
+    
+}
