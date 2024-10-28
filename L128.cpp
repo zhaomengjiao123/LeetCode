@@ -37,6 +37,7 @@ int longestConsecutive(vector<int>& nums) {
             if(!num_set.count(num-1)){
                 // 如果已经存在，就说明这个数已经属于某个序列了，不必再遍历。跳过
                 // 这个是不存在的情况，以当前的数为起点遍历
+                // 当前一个数不存在的时候，就以当前的数为起点
                 int currentNum = num;
                 // 当前的这个长度
                 int currentStreak = 1;

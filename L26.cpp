@@ -42,6 +42,40 @@ int removeDuplicates(vector<int>& nums) {
         
 }
 
+// 删除有序数组中的重复项  2刷
+// 非严格递增的数组，原地删除重复出现的元素，让他只出现一次
+
+int removeDuplicates2(vector<int>& nums) {
+
+    int n = nums.size();
+    if (n==0||n==1)
+    {
+        return n==0?0:1; 
+    }
+
+    // 定义左右2个指针
+    int l=0, r=1;
+    while (r<n)
+    {
+        if (nums[l]==nums[r])
+        {
+            r++;
+        }else if(nums[l]!=nums[r]){
+            // 从下一个位置开始复制，因为要保持有一个
+            // 复制到后一个位置上，如果本身相邻，这个就相当于自己复制，不会有问题
+            nums[l+1]=nums[r];
+            l++;
+            r++;
+        }
+        
+    }
+
+    return l+1; // 为什么这里和之前的不一样要+1?因为这个位置本身也是要算的 
+    
+    
+
+}
+
 
 int main(){
     vector<int> nums;

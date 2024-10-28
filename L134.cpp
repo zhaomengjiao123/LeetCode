@@ -114,6 +114,49 @@ int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
 
 }
 
+// 加油站 二刷
+int canCompleteCircuit2(vector<int>& gas, vector<int>& cost) {
+    // 记住这个理论，如果y是从x开始不能到达的第一个站点
+    // 那么xy之间的任意一个站点都不能达到y的下一个站点
+    // 所以下一次尝试就从y的下一个站点开始
+    int n = gas.size();
+    int i = 0;
+    while (i<n)
+    {
+        int sum_gas = 0;
+        int sum_cost = 0;
+        int cnt = 0; //可以达到的站点的数量
+        while (cnt<n)
+        {
+            int j = (i+cnt)%n; 
+            sum_cost = sum_cost + cost[j];
+            sum_gas = sum_gas + gas[j];
+            if (sum_gas<sum_cost)
+            {
+                break; // 到不了
+            }
+            // 能到
+            cnt++;
+            
+        }
+        // 查看能不能到
+        if (cnt==n)
+        {
+            return i;
+        }else{
+            // 从不能到的站点的下一个站点开始尝试
+            i = i + cnt +1;
+        }
+        
+        
+    }
+    return -1;
+    
+
+}
+
+
+
 int main(){
     vector<int> gas;
     vector<int> cost;
