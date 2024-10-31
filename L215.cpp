@@ -23,7 +23,7 @@
 #include<sstream>
 using namespace std;
 
-
+// 找第K大的数，用小跟堆，找第K小的数，用大根堆
 int findKthLargest(vector<int>& nums, int k) {
     // 创建优先队列  队列：先进先出  默认是leess   大根堆，是最大值优先，，greater是小跟堆最小值优先
     priority_queue<int, vector<int>, greater<>> q; // 指定优先队列是从小到大排序
@@ -50,6 +50,29 @@ int findKthLargest(vector<int>& nums, int k) {
       
 }
 
+// 二刷 第K大的数  前面的元素用大根堆存储，维持大根堆的大小为K
+int findKthLargest2(vector<int>& nums, int k) {
+    int n = nums.size();
+    priority_queue<int, vector<int>, greater<>> bigStk; // 默认是大根堆
+    for (int i = 0; i < n; i++)
+    {
+        if (bigStk.size()<k)
+        {
+            bigStk.push(nums[i]);
+        }else{
+            if (bigStk.top()<nums[i])
+            {
+                bigStk.pop();
+                bigStk.push(nums[i]);
+            }
+            
+        }
+        
+    }
+    return bigStk.top();
+    
+}
+
 int main(){
     string input;
     int k;
@@ -66,7 +89,7 @@ int main(){
         nums.push_back(num);
     }
 
-    int ans = findKthLargest(nums ,k);
+    int ans = findKthLargest2(nums ,k);
 
     cout << ans << endl;
     
