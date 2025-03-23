@@ -130,3 +130,16 @@ void put(int key, int value) {
  }
     
 };
+
+int main(){
+    LRUCache test(2);
+    test.put(1,1);
+    test.put(2,2);
+    cout<<test.get(1)<<endl;
+    test.put(3,3);
+    cout<<test.get(2)<<endl;
+    test.put(4,4);
+    cout<<test.get(1)<<endl;
+    cout<<test.get(3)<<endl;
+    cout<<test.get(4)<<endl;
+}
